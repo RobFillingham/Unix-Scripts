@@ -1,0 +1,3 @@
+usuarioA:nuevacontrasena1
+usuarioB:nuevacontrasena2
+usuarioC:nuevacontrasena3
