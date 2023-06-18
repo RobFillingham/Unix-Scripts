@@ -1,0 +1,13 @@
+E/S	Terminal	Fecha
+Entrada	pts/2
+Entrada	2023-06-17
+Entrada	12:38
+Entrada	pts/2
+Entrada	2023-06-17
+Entrada	12:42
+Entrada	pts/2
+Entrada	2023-06-17
+Entrada	12:45
+Entrada	pts/2
+Entrada	2023-06-17
+Entrada	12:46
