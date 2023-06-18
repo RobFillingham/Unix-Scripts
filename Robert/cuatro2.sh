@@ -2,14 +2,14 @@
 new="new.txt" 
 old="old.txt"
 diferencia="diferencia.txt"
-carpeta="/tmp/EntradasSalidas.txt"
+carpeta="EntradasSalidas.txt"
 eol=""
-users="/tmp/usuarios.txt"
+users="usuarios.txt"
 who>$old 
 
 if ! test -f "$carpeta"
 then
-	printf "\n" > $carpeta
+	printf "\nE/S Usuario Terminal       Fecha\n" > $carpeta
 fi
 
 
@@ -25,7 +25,7 @@ do
 	cat $diferencia
 	usuario=$(grep ">" $diferencia | cut -d" " -f2)
 	echo "Usuario: $usuario"
-	if $(grep -q "$usuario" $users)
+	if $(grep -q "$usuario" $users) && [ "$usuario" != "$eol" ]
 	then
 		echo "in: $in"
 		if [ "$in" != "$eol" ]
@@ -33,16 +33,20 @@ do
 			printf "$in\n" >> $carpeta
 		fi
 			
+		
+	
+	else
 		out=$(grep "<" $diferencia)
+		usuario=$(grep "<" $diferencia | cut -d" " -f2)
 		echo "out: $out"
 		if [ "$out" != "$eol" ]
 		then
 			printf "$out\n" >> $carpeta
 		fi
 		
-		echo "-----------------------"
+
 	fi
-	
+	echo "-----------------------"
 	mv $new $old
 	
 	sleep 1

@@ -1,6 +1,6 @@
 respuestas="stderr.txt"
 
-dialog --menu "Elige una opcion:" 10 50 3 1 "Agregar Usuario a Supervisar" 2 green 3 blue 2> $respuestas
+dialog --menu "Elige una opcion:" 10 50 3 1 "Agregar Usuario a Supervisar" 2 "Mostrar Inicios de Sesion" 3 blue 2> $respuestas
 
 opcion=$(head -n1 "$respuestas")
 
@@ -24,6 +24,10 @@ case "$opcion" in
 		else
 			dialog --title 'Supervision Usuario' --msgbox '\nEl usuario no existe!' 6 43			
 		fi
+	;;
+	
+	2)
+		dialog --title "(Entrada > / Salida <)"  --textbox EntradasSalidas.txt 50 70 
 	;;
 	
 		
