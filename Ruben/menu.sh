@@ -38,8 +38,8 @@ opcion_2() {
   if [ $response -eq 1 ]; then
     return
   elif [ -z "$cantidad_usuarios" ]; then
-    echo "No se proporcionó la cantidad de usuarios."
-    exit 1
+    dialog --msgbox "No se proporcionó la cantidad de usuarios." 0 0
+    return 1
   fi
 
   # Crea la interfaz de usuario para ingresar los datos de cada usuario
@@ -206,8 +206,7 @@ while true; do
     3 "CAMBIO MASIVO DE CONTRASEÑA,VIA ARCHIVO DE TEXTO" \
     4 "CAMBIO MASIVO DE CONTRASEÑA MANUAL" \
     5 "VOLVER AL MENÚ PRINCIPAL" \
-    2>&1 >/dev/tty)
-
+     2>&1 >/dev/tty) 
   # Tomar acciones en función de la opción seleccionada
   case $opcion in
     1)
