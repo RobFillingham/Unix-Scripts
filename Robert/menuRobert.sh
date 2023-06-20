@@ -14,9 +14,9 @@ then
 	echo "creado"
 fi 
 
-while [ "$opcion" -ne "6" ]
+while true
 do
-	dialog --menu "Elige una opcion:" 13 50 6 1 "Agregar Usuario a Supervisar" 2 "Mostrar Inicios de Sesion" 3 "HIstorial de Comandos" 4 "Consumo de Recursos" 5 "Administrador Paquetes" 6 "Salir" 2> $respuestas
+	dialog --menu "Elige una opcion:" 13 50 6 1 "Agregar Usuario a Supervisar" 2 "Mostrar Inicios de Sesion" 3 "HIstorial de Comandos" 4 "Consumo de Recursos"  5 "Salir" 2> $respuestas
 
 	opcion=$(head -n1 "$respuestas")
 
@@ -81,11 +81,10 @@ do
 			fi
 		;;
 		
-		5)
-			source "AdminPaquetes.sh"
-		;;
 		
-		6)
+		
+		5)
+			break
 		
 		;;
 		
