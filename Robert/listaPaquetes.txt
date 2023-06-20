@@ -1,0 +1,1 @@
+hello/jammy,now 2.10-2ubuntu4 amd64 [instalado]

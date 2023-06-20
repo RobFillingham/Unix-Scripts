@@ -1,10 +1,22 @@
 respuestas="stderr.txt"
 comandos="comandos.txt"
 recursos="recursos.txt"
+usuarios="/var/usuarios.txt"
+entradasSalidas="/var/EntradasSalidas.txt"
 opcion="1"
-while [ $opcion -ne 5 ]
+
+if ! test -f "$usuarios"
+then
+	dialog --passwordbox "Ingresa la contraseña de sudo:" 8 40 --insecure 2>$respuestas
+	password=$(head -n1 "$respuestas")
+	echo "$password" | sudo touch "$usuarios"
+	echo "$password" | sudo chmod "666" "$usuarios"
+	echo "creado"
+fi 
+
+while [ "$opcion" -ne "6" ]
 do
-	dialog --menu "Elige una opcion:" 13 50 5 1 "Agregar Usuario a Supervisar" 2 "Mostrar Inicios de Sesion" 3 "HIstorial de Comandos" 4 "Consumo de Recursos" 5 "Salir" 2> $respuestas
+	dialog --menu "Elige una opcion:" 13 50 6 1 "Agregar Usuario a Supervisar" 2 "Mostrar Inicios de Sesion" 3 "HIstorial de Comandos" 4 "Consumo de Recursos" 5 "Administrador Paquetes" 6 "Salir" 2> $respuestas
 
 	opcion=$(head -n1 "$respuestas")
 
@@ -18,11 +30,11 @@ do
 			if $(cat "/etc/passwd" | grep -q -w "$usr") && test -n "$usr"
 			then
 				#echo "user found"
-				if $(grep -q -w "$usr" "usuarios.txt")
+				if $(grep -q -w "$usr" "$usuarios")
 				then
 					dialog --title 'Supervision Usuario' --msgbox '\nEl usuario ya esta siendo supervisado!' 6 43
 				else
-					printf "$usr\n" >> "usuarios.txt"
+					printf "$usr\n" >> "$usuarios"
 					dialog --title 'Supervision Usuario' --msgbox '\nEl usuario ha sido agregado a la lista de supervision!' 6 60				
 				fi	
 			else
@@ -31,17 +43,23 @@ do
 		;;
 		
 		2)
-			dialog --title "(Entrada > / Salida <)" --textbox "EntradasSalidas.txt" 50 70 
+			dialog --title "(Entrada > / Salida <)" --textbox "$entradasSalidas" 50 70 
 		;;
 		
 		3)	
 			dialog --passwordbox "Ingresa la contraseña de sudo:" 8 40 --insecure 2>$respuestas
 			password=$(head -n1 "$respuestas")
-			dialog --inputbox "Ingresa un usuario:" 8 40 2>$respuestas
-			usr=$(head -n1 "$respuestas")
-			#tail -t "/home/${usr}/.bash_history" > comandos.txt
-			echo "$password" | sudo -S tac "/home/${usr}/.bash_history" > comandos.txt
-			dialog --title "Historial de Comandos de $usr"  --textbox "comandos.txt" 50 70 		
+			if test -z "$password"
+			then
+				true	
+			else 
+				dialog --inputbox "Ingresa un usuario:" 8 40 2>$respuestas
+				usr=$(head -n1 "$respuestas")
+				#tail -t "/home/${usr}/.bash_history" > comandos.txt
+				echo "$password" | sudo -S tac "/home/${usr}/.bash_history" > comandos.txt
+				printf " " > $password
+				dialog --title "Historial de Comandos de $usr"  --textbox "comandos.txt" 50 70
+			fi 		
 		;;
 		4)
 			dialog --inputbox "Ingresa el usuario:" 8 40 2>$respuestas
@@ -64,6 +82,10 @@ do
 		;;
 		
 		5)
+			source "AdminPaquetes.sh"
+		;;
+		
+		6)
 		
 		;;
 		

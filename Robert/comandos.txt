@@ -1,4 +1,82 @@
 ls
+cd var
+ls
+cd ..
+ls
+sudo bash
+./cuatro2.sh 
+logout
+sudo login alumno
+sudo bash
+cat K01speech-dispatcher 
+cd rc2.d
+ls rc*
+ls
+cd /etc
+sudo login alumno
+cd /home/robert/Documentos/Proyecto/Unix-Scripts/Robert/
+ls -l
+chmod +x cuatro2.sh 
+ls -l
+ls .l
+./cuatro2.sh 
+ls
+git push
+git pull
+git config pull.rebase false
+git pull
+git commit -m "Avances"
+git add -A
+cd /home/robert/Documentos/Proyecto/Unix-Scripts/Robert/
+cd /home/robert/Documentos/Proyecto/Unix-Scripts/Robert/cuatro2.sh
+cd /home/robert/Documentos/Proyecto/Unix-Scripts/Robert/cuatro.sh
+cd /
+./menuRobert.sh 
+cd alumno
+ls -l
+cd alumno
+getent group alumno
+
+cd alumno
+sudo chmod 774 *
+chmod 774 *
+chmod * 774
+cd alumno
+sudo usermod -a -G nuevo-usuario robert
+sudo usermod -a -G alumno4 robert
+ls -l
+sudo history -u alumno
+history -u alumno
+history alumno
+history
+sudo usermod -a -G alumno4 robert
+sudo usermod -a -G alumno3 robert
+sudo usermod -a -G alumno robert
+sudo usermod -a -G alumno* robert
+sudo bash
+sudo chmod 774 alumno
+sudo ls -l
+sudo chmod 770 alumno
+cd ..
+sudo chmod 770 alumno
+cd alumno
+ls -l
+sudo chmod 777 alumno
+chmod 777 alumno
+ls -l
+cd alumno
+ls
+cd /home
+./menuRobert.sh 
+sudo bash
+sudo
+ls -l
+ls
+./menuRobert.sh 
+./menuRobert.sh 
+tac "/home/alumno/.bash_history"
+[200~tac "/home/alumno/.bash_history"
+ls
 ./menuRobert.sh 
 w
 exit

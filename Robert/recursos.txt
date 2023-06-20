@@ -2,4 +2,5 @@
 
 USUARIO  TTY      DE               LOGIN@   IDLE   JCPU    PCPU WHAT
 
-robert   tty2     tty2             11:53   44:20   0.04s  0.03s /usr/libexec/gnome-session-binary --session=ubuntu
+robert   tty2     tty2             20:02    2:10m  0.03s  0.03s /usr/libexec/gnome-session-binary --session=ubuntu
+robert   pts/1    -                20:08    1:01   0.02s  0.03s sudo bash
