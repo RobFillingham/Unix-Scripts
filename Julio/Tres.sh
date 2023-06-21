@@ -119,7 +119,7 @@ CheckVolumenes() {
 
 # Definición de la función
 MostrarUsoDisco() {
-   dialog --title "Espacio en Disco" --stdout --msgbox "$(lsblk -o NAME,SIZE,TYPE,MOUNTPOINT | sed -e 's/├─//g' -e 's/└─//g'| awk 'BEGIN { printf "%-10s %-10s %-10s %s\n", "Dispositivo", "Tamaño", "Tipo", "Punto de Montaje" } { printf "%-10s %-10s %-10s %s\n", $1, $2, $3, $4 }')" 10 50
+   dialog --title "Espacio en Disco" --stdout --msgbox "$(lsblk -o NAME,SIZE,TYPE,MOUNTPOINT | sed -e 's/├─//g' -e 's/└─//g'| awk 'BEGIN { printf "%-10s %-10s %-10s %s\n", "Dispositivo", "Tamaño", "Tipo", "Punto de Montaje" } { printf "%-10s %-10s %-10s %s\n", $1, $2, $3, $4 }')" 50 80
 }
 
 

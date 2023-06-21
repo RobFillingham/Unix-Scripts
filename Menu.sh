@@ -16,11 +16,11 @@ do
 		;;
 		
 		2)
-			source "Donovan/dos.sh"
+			source "Donovan/dos2.sh"
 		;;
 		
 		3)	
-					
+			source "Julio/Tres.sh"		
 		;;
 		4)
 			source "Robert/menuRobert.sh"

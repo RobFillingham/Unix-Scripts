@@ -41,42 +41,41 @@ while true; do
             fi
             ;;
         4)
-            usuario=$(dialog --title "Usuario a inhabilitar:" --inputbox "Introduzca el usuario" 10 60 3>&1 1>&2 2>&3)
+            respuesta="archivo.txt"
+		usuario=$(dialog --title "Usuario a inhabilitar:" --inputbox "Introduzca el usuario" 10 60 3>&1 1>&2 2>&3)
 
-            if [ -z "$usuario" ]; then
-                dialog --title "Inhabilitacion de usuarios" --msgbox "El usuario ingresado no existe" 10 60
-            else
-                if id "$usuario" >/dev/null 2>&1; then
-                    tiempomh=$(dialog --title "Tiempo de inhabilitación" --inputbox "Introduzca el tiempo en minutos y horas (Ejemplo: 4h20m) para deshabilitar al usuario $usuario" 10 60 3>&1 1>&2 2>&3)
+		if [ -z "$usuario" ]; then
+		    dialog --title "Inhabilitacion de usuarios" --msgbox "El usuario ingresado no existe" 10 60
+		else
+		    if id "$usuario" >/dev/null 2>&1; then
+			tiempo=$(dialog --title "Tiempo de inhabilitación" --inputbox "Introduzca el tiempo en formato hh:mm para deshabilitar al usuario $usuario" 10 60 3>&1 1>&2 2>&3)
 
-                    if [ -z "$tiempomh" ]; then
-                        dialog --title "Inhabilitacion de usuarios" --msgbox "El tiempo no fue ingresado" 10 60
-                    else
-                        minutos=0
-                        horas=0
+			if [ -z "$tiempo" ]; then
+			    dialog --title "Inhabilitacion de usuarios" --msgbox "El tiempo no fue ingresado" 10 60
+			else
+			    horas=$(echo "$tiempo" | cut -d':' -f1)
+			    minutos=$(echo "$tiempo" | cut -d':' -f2)
+			    total_segundos=$((horas * 3600 + minutos * 60))
 
-                        if [[ $tiempomh == *h* ]]; then
-                            horas=$(echo "$tiempomh" | sed 's/[^0-9]*//g')
-                        fi
+			    dialog --passwordbox "Ingresa la contraseña de sudo:" 8 40 --insecure 2> "$respuesta"
+			    password=$(head -n1 "$respuesta")
 
-                        if [[ $tiempomh == *m* ]]; then
-                            minutos=$(echo "$tiempomh" | sed 's/[^0-9]*//g')
-                        fi
+			    # Inhabilitar el usuario
+			    echo "$password" | sudo usermod -L "$usuario"
 
-                        total_segundos=$((horas * 3600 + minutos * 60))
-			
-			dialog --passwordbox "Ingresa la contraseña de sudo:" 8 40 --insecure 2> $respuesta
-			password=$(head -n1 "$respuesta")
-                        echo "$password" | sudo passwd -l "$usuario"
-                        dialog --title "Inhabilitacion de usuarios" --msgbox "El usuario $usuario ha sido inhabilitado por $tiempomh." 10 60
-                        sleep "$total_segundos"
-                        echo "$password" | sudo passwd -u "$usuario"
-                        dialog --title "Inhabilitacion de usuarios" --msgbox "$usuario fue habilitado nuevamente." 10 60
-                    fi
-                else
-                    dialog --title "Inhabilitacion de usuarios" --msgbox "El usuario $usuario no existe" 10 60
-                fi
-            fi
+			    dialog --title "Inhabilitacion de usuarios" --msgbox "El usuario $usuario ha sido inhabilitado por $horas horas y $minutos minutos." 10 60
+
+			    sleep "$total_segundos"
+
+			    # Habilitar nuevamente al usuario
+			    echo "$password" | sudo usermod -U "$usuario"
+
+			    dialog --title "Inhabilitacion de usuarios" --msgbox "$usuario fue habilitado nuevamente." 10 60
+			fi
+		    else
+			dialog --title "Inhabilitacion de usuarios" --msgbox "El usuario $usuario no existe" 10 60
+		    fi
+		fi
             ;;
 
         5)

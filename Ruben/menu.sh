@@ -1,5 +1,7 @@
 #!/bin/bash
 
+respuesta="aaa.txt"
+
 # Función para mostrar la opción seleccionada
 mostrar_opcion() {
   dialog --infobox "$1" 0 0
@@ -23,7 +25,9 @@ opcion_1() {
       sleep 2
     else
       # Crea el usuario utilizando el comando useradd
-      useradd -m -p "$(openssl passwd -1 "$contrasena_usuario")" "$nombre_usuario"
+      dialog --passwordbox "Ingresa la contraseña de sudo:" 8 40 --insecure 2> $respuesta
+	password=$(head -n1 "$respuesta")
+      echo "$password" | sudo useradd -m -p "$(openssl passwd -1 "$contrasena_usuario")" "$nombre_usuario"
       dialog --infobox "El usuario $nombre_usuario se ha creado exitosamente." 0 0
       sleep 2
     fi
@@ -75,7 +79,8 @@ opcion_2() {
       sleep 2
     else
       # Crea el usuario utilizando el comando useradd
-      useradd -m -p "$(openssl passwd -1 "$contrasena_usuario")" "$nombre_usuario"
+      password=$(head -n1 "$respuesta")
+      echo "$password" | sudo useradd -m -p "$(openssl passwd -1 "$contrasena_usuario")" "$nombre_usuario"
       dialog --infobox "El usuario $nombre_usuario se ha creado exitosamente." 0 0
       sleep 2
     fi
@@ -115,7 +120,10 @@ opcion_3() {
         # Verifica que la contraseña y la confirmación coincidan
         if [ "$contrasena_nueva" == "$confirmar_contrasena" ]; then
           # Cambia la contraseña utilizando el comando passwd
-          echo -e "$contrasena_nueva\n$contrasena_nueva" | passwd "$nombre_usuario"
+          dialog --passwordbox "Ingresa la contraseña de sudo:" 8 40 --insecure 2> $respuesta
+	password=$(head -n1 "$respuesta")
+          echo -e "$password\n$contrasena_nueva\n$contrasena_nueva" | sudo passwd "$nombre_usuario"
+          echo -e "$password\n$contrasena_nueva\n$contrasena_nueva"
           dialog --infobox "Se ha cambiado la contraseña del usuario $nombre_usuario." 0 0  # Muestra un mensaje de éxito utilizando la biblioteca ncurses
           sleep 2
         else
@@ -185,7 +193,9 @@ opcion_4() {
       # Verifica si el usuario existe
       if id "$nombre_usuario" &>/dev/null; then
         # Cambia la contraseña utilizando el comando passwd
-        echo -e "$contrasena_nueva\n$contrasena_nueva" | passwd "$nombre_usuario"
+        dialog --passwordbox "Ingresa la contraseña de sudo:" 8 40 --insecure 2> $respuesta
+	password=$(head -n1 "$respuesta")
+        echo -e "$password\n$contrasena_nueva\n$contrasena_nueva" | sudo passwd "$nombre_usuario"
         dialog --infobox "Se ha cambiado la contraseña del usuario $nombre_usuario." 0 0
         sleep 2
       else
