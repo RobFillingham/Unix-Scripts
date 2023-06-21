@@ -1,4 +1,4 @@
-#!/bin/bash
+
 
 while true; do
     # Mostrar el menú utilizando ncurses
@@ -8,12 +8,12 @@ while true; do
         "2" "RESPALDO PROGRAMADO" \
         "3" "BORRADO TEMPORAL PROGRAMADO" \
         "4" "INHABILITACION DE USUARIOS POR PERIODO DE TIEMPO" \
-        "5" "ANALIZAR ESTADO DE COMPUTADORA (ANTI-VIRUS)" \
+        "5" "ANALIZAR ESTADO DE COMPUTADORA ANTI-VIRUS" \
         3>&1 1>&2 2>&3)
 
     # Realizar acciones según la opción seleccionada
     case $opcion in
-        1)
+            1)
             crontab -e
             dialog --title "PROGRAMACION DE TAREAS DE FORMA MANUAL" --msgbox "Las tareas fueron programadas correctamente" 10 60
             ;;
