@@ -2,7 +2,7 @@
 
 # Mostrar el menú utilizando ncurses
 opcion=$(dialog --clear --title "PROGRAMACION DE TAREAS DE FORMA MANUAL" \
-    --menu "Selecciona una opción:" 15 50 4 \
+    --menu "Selecciona una opción:" 15 50 5 \
     "1" "PROGRAMACION DE TAREAS DE FORMA MANUAL" \
     "2" "RESPALDO PROGRAMADO" \
     "3" "BORRADO TEMPORAL PROGRAMADO" \

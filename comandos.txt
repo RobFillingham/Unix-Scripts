@@ -1,3 +1,30 @@
+./Menu.sh 
+ls
+cd rcS.d
+la rc*
+ls
+cd /etc/
+clear
+./Menu.sh 
+ls
+sudo login alumno
+systemctl status WatchWhoUNIXProject.service 
+ls
+cd /etc/systemd/system
+./Menu.sh 
+ls
+git push
+git pull
+git commit -m "Menu Principal"
+git add -A
+git push
+git pull
+git commit -m "Final Robert"
+git add -A
+./Menu.sh 
+ls
+chmod 777 Menu.sh 
+ls
 sudo login alumno
 ls -l
 cd var

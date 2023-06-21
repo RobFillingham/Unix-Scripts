@@ -1,1 +1,0 @@
-dialog/jammy,now 1.3-20211214-1 amd64 [instalado]
