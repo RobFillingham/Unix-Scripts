@@ -12,6 +12,8 @@ do
 	case "$opcion" in
 
 		1) 
+			#dialog --passwordbox "Ingresa la contraseña de sudo:" 8 40 --insecure 2> $respuestas
+			#password=$(head -n1 "$respuestas")
 			source "Ruben/menu.sh"
 		;;
 		

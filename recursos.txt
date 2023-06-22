@@ -2,3 +2,4 @@
 
 USUARIO  TTY      DE               LOGIN@   IDLE   JCPU    PCPU WHAT
 
+robert   tty2     tty2             18:31    4:22   0.05s  0.05s /usr/libexec/gnome-session-binary --session=ubuntu

@@ -130,7 +130,7 @@ CrearFormatMontarVolumenes() {
     dialog --title "Dispositivo" --inputbox "Ingresa el nombre del dispositivo (ejemplo: sda):" 10 50 2>dispositivo.tmp
     dispositivo=$(cat dispositivo.tmp)
     rm dispositivo.tmp
-
+	echo "$dispositivo"
     # Diálogo para ingresar el tamaño de la partición
     dialog --title "Tamaño de la partición" --inputbox "Ingresa el tamaño de la partición (ejemplo: 85%):" 10 50 2>tamano.tmp
     tamano=$(cat tamano.tmp)

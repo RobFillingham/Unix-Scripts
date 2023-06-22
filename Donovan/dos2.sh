@@ -17,14 +17,39 @@ while true; do
             dialog --title "PROGRAMACION DE TAREAS DE FORMA MANUAL" --msgbox "Las tareas fueron programadas correctamente" 10 60
             ;;
         2)
-            dialog --title "RESPALDO PROGRAMADO" --msgbox "Comenzando el proceso de respaldo" 8 45
-            fecha=$(date "+%d-%m-%y_%H-%M-%S")
-            archivo="respaldo_$fecha.tar.gz"
-            carpetaD="respaldos"
-            respaldable="PruebasProyecto"
-            mkdir -p "$carpetaD"
-            tar cfvz "$carpetaD/$archivo" "$respaldable"
-            dialog --title "PROGRAMACION DE TAREAS" --msgbox "El respaldo fue realizado con exito" 10 60
+            carpeta_script="/home/robert/Documentos/Proyecto/Unix-Scripts/Donovan"  # Ruta completa de la carpeta que contiene el script
+
+		hora=$(dialog --stdout --title "PROGRAMACION DE TAREAS" --inputbox "Ingrese la hora para programar el respaldo (formato HH:MM)" 8 45)
+		fecha=$(date "+%d-%m-%y")
+		archivo="respaldo_$fecha.tar.gz"
+		carpetaD="$carpeta_script/respaldos"  # Ruta completa de la carpeta de respaldo
+		respaldable="PruebasProyecto"
+
+		dialog --title "RESPALDO PROGRAMADO" --msgbox "El respaldo se programó para la hora: $hora" 8 45
+
+		# Obtener la hora actual en segundos
+		hora_actual=$(date +%s)
+
+		# Obtener la hora programada en segundos
+		hora_programada=$(date -d "$hora" +%s)
+
+		# Calcular la diferencia de tiempo en segundos
+		diferencia_tiempo=$((hora_programada - hora_actual))
+
+		# Verificar si la diferencia de tiempo es positiva para realizar el respaldo
+		if [ $diferencia_tiempo -gt 0 ]; then
+		  sleep $diferencia_tiempo  # Esperar hasta que llegue la hora programada
+		fi
+
+		# Realizar el respaldo
+		fecha=$(date "+%d-%m-%y_%H-%M-%S")
+		archivo="respaldo_$fecha.tar.gz"
+		carpetaD="$carpeta_script/respaldos"
+		respaldable="PruebasProyecto"
+		mkdir -p "$carpetaD"
+		tar cfvz "$carpetaD/$archivo" "$respaldable"
+
+		dialog --title "PROGRAMACION DE TAREAS" --msgbox "El respaldo fue realizado con éxito" 10 60
             ;;
         3)
             archivos_temporales="/tmp"

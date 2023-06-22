@@ -17,6 +17,8 @@ opcion_1() {
   fi
 
   # Lee el archivo de usuarios y crea los usuarios
+  dialog --passwordbox "Ingresa la contraseña de sudo:" 8 40 --insecure 2> $respuesta
+	password=$(head -n1 "$respuesta")
   while IFS=: read -r nombre_usuario contrasena_usuario
   do
     # Verifica si el usuario ya existe
@@ -25,8 +27,8 @@ opcion_1() {
       sleep 2
     else
       # Crea el usuario utilizando el comando useradd
-      dialog --passwordbox "Ingresa la contraseña de sudo:" 8 40 --insecure 2> $respuesta
-	password=$(head -n1 "$respuesta")
+      #dialog --passwordbox "Ingresa la contraseña de sudo:" 8 40 --insecure 2> $respuesta
+	#password=$(head -n1 "$respuesta")
       echo "$password" | sudo useradd -m -p "$(openssl passwd -1 "$contrasena_usuario")" "$nombre_usuario"
       dialog --infobox "El usuario $nombre_usuario se ha creado exitosamente." 0 0
       sleep 2
@@ -232,7 +234,7 @@ while true; do
       opcion_3
       ;;
     4)
-      mostrar_opcion "INGRESANDO AL CAMBIO MASIVO DE CONTRASEÑA MANUAL"
+      mostrar_opcion "INGRESANDO AL CAMBIO MANUAL DE CONTRASEÑA MANUAL"
       opcion_4
       ;;
     5)
